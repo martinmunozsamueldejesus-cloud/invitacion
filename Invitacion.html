@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda de Ana & Carlos | 15 Junio 2026</title>
+    
+    <!-- Fuentes premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --gold: #c8a97e;
+            --gold-light: #e4d4b5;
+            --gold-dark: #a67c52;
+            --ivory: #f9f6f2;
+            --charcoal: #2c2c2c;
+            --gray: #5a5a5a;
+            --gray-light: #e8e8e8;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ivory);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        /* ===== ANIMACIONES ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ===== HERO / PORTADA ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(249, 246, 242, 0.9) 0%, rgba(249, 246, 242, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            animation: fadeUp 1.2s ease-out;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .couple-names {
+            font-size: 5.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .couple-names::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+        
+        .invitation-text {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .scroll-indicator i {
+            font-size: 24px;
+            color: var(--gold);
+        }
+        
+        /* ===== HISTORIA / GALERÍA ===== */
+        .story-section {
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            color: var(--charcoal);
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .story-text {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        
+        .story-text p {
+            margin-bottom: 25px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(6, 60px);
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .gallery-item:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1 / span 3;
+        }
+        
+        .gallery-item:nth-child(2) {
+            grid-column: 2;
+            grid-row: 2 / span 3;
+        }
+        
+        .gallery-item:nth-child(3) {
+            grid-column: 1;
+            grid-row: 4 / span 3;
+        }
+        
+        .gallery-item:nth-child(4) {
+            grid-column: 2;
+            grid-row: 5 / span 2;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* ===== DETALLES ===== */
+        .details-section {
+            background-color: var(--ivory);
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .detail-card {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            border-top: 4px solid transparent;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--gold);
+        }
+        
+        .detail-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .detail-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--charcoal);
+        }
+        
+        .detail-card p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        /* ===== MAPA ===== */
+        .map-section {
+            background-color: white;
+        }
+        
+        .map-container {
+            margin-top: 40px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 450px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .location-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(200, 169, 126, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .info-content h4 {
+            margin-bottom: 8px;
+            color: var(--charcoal);
+        }
+        
+        .info-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* ===== CONFIRMACIÓN ===== */
+        .rsvp-section {
+            background-color: var(--ivory);
+        }
+        
+        .rsvp-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .rsvp-header {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .rsvp-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .rsvp-header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .rsvp-form {
+            padding: 50px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--charcoal);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.1);
+        }
+        
+        .select-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .rsvp-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rsvp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(200, 169, 126, 0.3);
+        }
+        
+        .rsvp-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .rsvp-btn:hover::after {
+            left: 100%;
+        }
+        
+        .rsvp-btn i {
+            margin-right: 10px;
+        }
+        
+        /* ===== MÚSICA ===== */
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .music-toggle i {
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .music-controls {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .music-toggle.active .music-controls {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .music-option {
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .music-option:hover {
+            background-color: rgba(200, 169, 126, 0.1);
+        }
+        
+        .music-option.active {
+            background-color: rgba(200, 169, 126, 0.15);
+            color: var(--gold-dark);
+            font-weight: 500;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--charcoal);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 25px 15px;
+            min-width: 110px;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 30px 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .heart {
+            color: var(--gold);
+            animation: float 2s infinite ease-in-out;
+            display: inline-block;
+        }
+        
+        .copyright {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .couple-names {
+                font-size: 4.5rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .gallery-grid {
+                grid-template-rows: repeat(6, 50px);
+            }
+            
+            .select-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .rsvp-form {
+                padding: 40px 30px;
+            }
+            
+            .countdown-item {
+                min-width: 90px;
+                padding: 20px 10px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .couple-names {
+                font-size: 2.8rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .date-badge {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+            
+            .rsvp-header {
+                padding: 30px 20px;
+            }
+            
+            .rsvp-header h2 {
+                font-size: 2rem;
+            }
+            
+            .music-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .music-controls {
+                bottom: 70px;
+                right: -50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Portada -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="date-badge">15 DE JUNIO 2026</div>
+                <h1 class="couple-names">Ana & Carlos</h1>
+                <p class="invitation-text">Con gran alegría queremos compartir con ustedes el día más especial de nuestras vidas. Su presencia hará este momento aún más memorable.</p>
+                <a href="#rsvp" class="rsvp-btn" style="display: inline-block; max-width: 300px; margin: 0 auto; text-decoration: none;">Confirmar Asistencia</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#story" style="color: inherit;"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Historia -->
+    <section class="section story-section" id="story">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Nuestra Historia</h2>
+                <p class="section-subtitle">Un viaje que comenzó con una mirada y hoy nos lleva al altar</p>
+            </div>
+            
+            <div class="story-content">
+                <div class="story-text fade-up">
+                    <p>Nos conocimos en un día de lluvia, bajo un paraguas compartido. Lo que empezó como una casualidad se convirtió en el comienzo de nuestra historia de amor.</p>
+                    <p>A lo largo de estos años, hemos crecido juntos, apoyándonos en cada paso, celebrando cada logro y encontrando en el otro nuestro lugar en el mundo.</p>
+                    <p>Ahora, con corazones llenos de amor y esperanza, queremos unir nuestras vidas ante Dios y ante ustedes, nuestras personas más queridas.</p>
+                    <p>Les invitamos a ser parte de este día tan especial, donde celebraremos no solo nuestro amor, sino también las bendiciones de tenerlos en nuestras vidas.</p>
+                </div>
+                
+                <div class="gallery-grid fade-up">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Primer viaje juntos">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paseo en otoño">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Celebración especial">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Momentos felices">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalles -->
+    <section class="section details-section" id="details">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Detalles del Evento</h2>
+                <p class="section-subtitle">Toda la información que necesitas para nuestro día especial</p>
+            </div>
+            
+            <div class="details-grid">
+                <div class="detail-card fade-up">
+                    <div class="detail-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3>Fecha</h3>
+                    <p>Sábado<br>15 de Junio 2026</p>
+                </div>
+                
+                <div class="detail-card fade-up">
+                    <div class="detail-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <h3>Horario</h3>
+                    <p>Ceremonia: 17:00 hrs<br>Recepción: 19:00 hrs</p>
+                </div>
+                
+                <div class="detail-card fade-up">
+                    <div class="detail-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Ceremonia</h3>
+                    <p>Parroquia San José<br>Guadalajara, Jalisco</p>
+                </div>
+                
+                <div class="detail-card fade-up">
+                    <div class="detail-icon">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <h3>Recepción</h3>
+                    <p>Hacienda San Ángel<br>Código: Formal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa -->
+    <section class="section map-section" id="map">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title">Ubicación</h2>
+                <p class="section-subtitle">Encuentra fácilmente el lugar de nuestra celebración</p>
+            </div>
+            
+            <div class="map-container fade-up">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3732.966644477082!2d-103.39388832432403!3d20.67282278088324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ae3a3d654973%3A0x5330d29715e7f141!2sGuadalajara%2C%20Jal.!5e0!3m2!1ses-419!2smx!4v1688153481834!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
+            <div class="location-info fade-up">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Estacionamiento</h4>
+                        <p>Valet parking gratuito disponible para todos los invitados.</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Hospedaje</h4>
+                        <p>Tarifas especiales en hotel cercano. Contactar para reservación.</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Recomendaciones</h4>
+                        <p>El evento es al aire libre. Sugerimos traer una chaqueta ligera.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmación -->
+    <section class="section rsvp-section" id="rsvp">
+        <div class="container">
+            <div class="rsvp-container fade-up">
+                <div class="rsvp-header">
+                    <h2>Confirma Tu Asistencia</h2>
+                    <p>Por favor confirma antes del 1 de Mayo 2026</p>
+                </div>
+                
+                <form class="rsvp-form" id="rsvpForm">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nombre completo *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Ej: María González López" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Número de teléfono *</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Ej: 33 1234 5678" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">¿Asistirás a nuestra boda? *</label>
+                        <div class="select-group">
+                            <select id="attendance" class="form-control" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="yes">¡Sí, con mucho gusto!</option>
+                                <option value="no">Lamentablemente no podré asistir</option>
+                            </select>
+                            
+                            <select id="guests" class="form-control" required>
+                                <option value="" disabled selected>Número de invitados</option>
+                                <option value="1">1 persona</option>
+                                <option value="2">2 personas</option>
+                                <option value="3">3 personas</option>
+                                <option value="4">4 personas</option>
+                                <option value="5+">5 o más personas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="message">Mensaje para los novios (opcional)</label>
+                        <textarea id="message" class="form-control" rows="3" placeholder="Escribe un mensaje especial para Ana y Carlos..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="rsvp-btn">
+                        <i class="fab fa-whatsapp"></i> Enviar Confirmación
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Música -->
+    <div class="music-toggle" id="musicToggle">
+        <i class="fas fa-music"></i>
+        <div class="music-controls">
+            <div class="music-option active" data-song="none">
+                <i class="fas fa-volume-mute"></i> Sin música
+            </div>
+            <div class="music-option" data-song="song1">
+                <i class="fas fa-play"></i> Música romántica
+            </div>
+            <div class="music-option" data-song="song2">
+                <i class="fas fa-play"></i> Piano suave
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="section-header fade-up">
+                <h2 class="section-title" style="color: white;">Faltan</h2>
+            </div>
+            
+            <div class="countdown fade-up" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">000</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+            
+            <p class="footer-text fade-up">Su presencia es el regalo más valioso que podríamos recibir<br>Con todo nuestro amor <span class="heart">❤</span></p>
+            
+            <p class="copyright fade-up">
+                Boda de Ana & Carlos • 15 de Junio 2026<br>
+                Guadalajara, Jalisco
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Animaciones al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-up');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            
+            fadeElements.forEach(el => fadeObserver.observe(el));
+            
+            // Scroll suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Contador regresivo
+            function updateCountdown() {
+                const weddingDate = new Date('June 15, 2026 17:00:00').getTime();
+                const now = new Date().getTime();
+                const timeLeft = weddingDate - now;
+                
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(3, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Música
+            const musicToggle = document.getElementById('musicToggle');
+            const musicOptions = document.querySelectorAll('.music-option');
+            let currentAudio = null;
+            
+            musicToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+            });
+            
+            document.addEventListener('click', function() {
+                musicToggle.classList.remove('active');
+            });
+            
+            musicOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    musicOptions.forEach(opt => {
+                        opt.classList.remove('active');
+                        opt.querySelector('i').className = 'fas fa-play';
+                    });
+                    
+                    this.classList.add('active');
+                    
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                    }
+                    
+                    const song = this.getAttribute('data-song');
+                    
+                    if (song === 'none') {
+                        this.querySelector('i').className = 'fas fa-volume-mute';
+                        return;
+                    }
+                    
+                    this.querySelector('i').className = 'fas fa-pause';
+                    
+                    let audioSrc = '';
+                    switch(song) {
+                        case 'song1':
+                            audioSrc = 'https://assets.mixkit.co/music/preview/mixkit-romantic-sunset-687.mp3';
+                            break;
+                        case 'song2':
+                            audioSrc = 'https://assets.mixkit.co/music/preview/mixkit-piano-melody-interface-125.mp3';
+                            break;
+                    }
+                    
+                    if (audioSrc) {
+                        currentAudio = new Audio(audioSrc);
+                        currentAudio.loop = true;
+                        currentAudio.volume = 0.4;
+                        currentAudio.play().catch(e => console.log("Reproducción automática no permitida"));
+                    }
+                });
+            });
+            
+            // Confirmación por WhatsApp PROFESIONAL
+            const rsvpForm = document.getElementById('rsvpForm');
+            
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const attendance = document.getElementById('attendance').value;
+                const guests = document.getElementById('guests').value;
+                const message = document.getElementById('message').value.trim();
+                
+                if (!name || !phone || !attendance || !guests) {
+                    alert('Por favor completa todos los campos obligatorios (*)');
+                    return;
+                }
+                
+                // Número de WhatsApp de prueba
+                const whatsappNumber = "524751074154";
+                
+                // Crear mensaje ultra profesional
+                let whatsappMessage = `*🎊 CONFIRMACIÓN DE ASISTENCIA - BODA ANA & CARLOS*%0A%0A`;
+                whatsappMessage += `*━━━━━━━━━━━━━━━━━━━━*%0A%0A`;
+                
+                // Información del invitado
+                whatsappMessage += `*👤 INVITADO:*%0A${name}%0A%0A`;
+                whatsappMessage += `*📱 CONTACTO:*%0A${phone}%0A%0A`;
+                
+                // Confirmación
+                const attendanceText = attendance === 'yes' ? '✅ *CONFIRMA ASISTENCIA*' : '❌ *NO PODRÁ ASISTIR*';
+                whatsappMessage += `*📅 ESTATUS:*%0A${attendanceText}%0A%0A`;
+                
+                if (attendance === 'yes') {
+                    const guestText = guests === '1' ? '1 persona' : `${guests} personas`;
+                    whatsappMessage += `*👥 TOTAL DE INVITADOS:*%0A${guestText}%0A%0A`;
+                }
+                
+                // Mensaje personalizado
+                if (message) {
+                    whatsappMessage += `*💌 MENSAJE PARA LOS NOVIOS:*%0A"${message}"%0A%0A`;
+                }
+                
+                // Firma elegante
+                whatsappMessage += `*━━━━━━━━━━━━━━━━━━━━*%0A`;
+                whatsappMessage += `*Fecha:* 15 de Junio, 2026%0A`;
+                whatsappMessage += `*Hora:* 17:00 hrs%0A`;
+                whatsappMessage += `*Lugar:* Hacienda San Ángel, GDL%0A%0A`;
+                whatsappMessage += `_Confirmación enviada desde la invitación digital_`;
+                
+                // Abrir WhatsApp
+                window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+                
+                // Mostrar confirmación y resetear
+                alert(`¡Perfecto, ${name}! Se abrirá WhatsApp para que envíes tu confirmación.`);
+                rsvpForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
