@@ -706,22 +706,104 @@
                 right: -50px;
             }
         }
+        .familias-list button {
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        padding: 16px 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        text-align: left;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-bottom: 12px;
+        }
+
+        .familias-list button:hover {
+        background: #f9f7f5;
+        border-color: var(--gold);
+        transform: translateY(-2px);
+        }
+
+        #listaInvitados label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        }
+
+        #listaInvitados label:hover {
+        background: #faf8f6;
+        }
     </style>
 </head>
 <body>
     <!-- Portada -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="date-badge">15 DE JUNIO 2026</div>
-                <h1 class="couple-names">Ana & Carlos</h1>
-                <p class="invitation-text">Con gran alegría queremos compartir con ustedes el día más especial de nuestras vidas. Su presencia hará este momento aún más memorable.</p>
-                <a href="#rsvp" class="rsvp-btn" style="display: inline-block; max-width: 300px; margin: 0 auto; text-decoration: none;">Confirmar Asistencia</a>
+<!-- SOLO TE PONGO LA SECCIÓN RSVP + JS CORREGIDO -->
+<!-- TODO LO DEMÁS DE TU HTML SE QUEDA IGUAL -->
+
+    <section class="section rsvp-section" id="rsvp">
+    <div class="container">
+        <div class="rsvp-container fade-up">
+
+        <div class="rsvp-header">
+            <h2>Confirmación de Asistencia</h2>
+            <p>
+            Nos encantaría contar con tu presencia.<br>
+            Por favor confirma la asistencia de los integrantes de tu familia.
+            </p>
+        </div>
+
+        <div class="rsvp-form">
+
+            <div class="form-group">
+            <label class="form-label">Buscar familia</label>
+            <input
+                type="text"
+                id="buscarFamilia"
+                class="form-control"
+                placeholder="Escribe el apellido de tu familia (ej. Camacho)"
+            >
+            <small style="color:#777;">
+                Selecciona tu familia para continuar con la confirmación.
+            </small>
             </div>
+
+            <div id="listaFamilias" class="familias-list"></div>
+
+            <form id="formConfirmacion" style="display:none;">
+
+            <h3 id="familiaSeleccionada" style="margin-bottom:15px;"></h3>
+
+            <p style="color:#777;margin-bottom:20px;">
+                Marca únicamente a las personas que asistirán al evento.
+            </p>
+
+            <div id="listaInvitados" class="form-group"></div>
+
+            <div class="form-group">
+                <label class="form-label">Mensaje para los novios (opcional)</label>
+                <textarea
+                id="mensaje"
+                class="form-control"
+                placeholder="Escribe un mensaje si así lo deseas"
+                ></textarea>
+            </div>
+
+            <button type="submit" class="rsvp-btn">
+                <i class="fas fa-check"></i> Confirmar asistencia
+            </button>
+
+            </form>
+
         </div>
-        <div class="scroll-indicator">
-            <a href="#story" style="color: inherit;"><i class="fas fa-chevron-down"></i></a>
         </div>
+    </div>
     </section>
 
     <!-- Historia -->
@@ -1104,84 +1186,87 @@
         });
     </script>
     <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbx735wnuivqk7hKQ-dphMwaLqoTyyHY5zcKpOGh39NWziLGR1b80kHllihptDbsIXrf/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbx735wnuivqk7hKQ-dphMwaLqoTyyHY5zcKpOGh39NWziLGR1b80kHllihptDbsIXrf/exec";
 
-let invitados = [];
-let familiaActual = "";
+        let invitados = [];
+        let familiaActual = "";
 
-fetch(API_URL)
-  .then(res => res.json())
-  .then(data => invitados = data);
+        fetch(API_URL)
+        .then(res => res.json())
+        .then(data => invitados = data);
 
-const buscar = document.getElementById("buscarFamilia");
-const listaFamilias = document.getElementById("listaFamilias");
-const form = document.getElementById("formConfirmacion");
-const listaInvitados = document.getElementById("listaInvitados");
-const familiaTitle = document.getElementById("familiaSeleccionada");
+        const buscar = document.getElementById("buscarFamilia");
+        const listaFamilias = document.getElementById("listaFamilias");
+        const form = document.getElementById("formConfirmacion");
+        const listaInvitados = document.getElementById("listaInvitados");
+        const familiaTitle = document.getElementById("familiaSeleccionada");
 
-buscar.addEventListener("input", () => {
-  const texto = buscar.value.toLowerCase();
-  listaFamilias.innerHTML = "";
+        buscar.addEventListener("input", () => {
+        const texto = buscar.value.toLowerCase();
+        listaFamilias.innerHTML = "";
 
-  const familias = [...new Set(
-    invitados
-      .filter(i => i.familia.toLowerCase().includes(texto))
-      .map(i => i.familia)
-  )];
+        if (!texto) return;
 
-  familias.forEach(f => {
-    const btn = document.createElement("button");
-    btn.className = "form-control";
-    btn.style.marginBottom = "10px";
-    btn.textContent = f;
-    btn.onclick = () => seleccionarFamilia(f);
-    listaFamilias.appendChild(btn);
-  });
-});
+        const familias = [...new Set(
+            invitados
+            .filter(i => i.familia.toLowerCase().includes(texto))
+            .map(i => i.familia)
+        )];
 
-function seleccionarFamilia(familia) {
-  familiaActual = familia;
-  form.style.display = "block";
-  listaFamilias.innerHTML = "";
-  buscar.value = familia;
-  familiaTitle.textContent = familia;
-  listaInvitados.innerHTML = "";
+        familias.forEach(f => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = f;
+            btn.onclick = () => seleccionarFamilia(f);
+            listaFamilias.appendChild(btn);
+        });
+        });
 
-  invitados
-    .filter(i => i.familia === familia)
-    .forEach(i => {
-      listaInvitados.innerHTML += `
-        <label style="display:block;margin-bottom:10px;">
-          <input type="checkbox" value="${i.invitado}" checked>
-          ${i.invitado}
-        </label>
-      `;
-    });
-}
+        function seleccionarFamilia(familia) {
+        familiaActual = familia;
+        form.style.display = "block";
+        listaFamilias.innerHTML = "";
+        buscar.value = familia;
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
+        familiaTitle.innerHTML = `<strong>${familia}</strong>`;
 
-  const mensaje = document.getElementById("mensaje").value;
+        listaInvitados.innerHTML = "";
 
-  const data = [...listaInvitados.querySelectorAll("input")].map(i => ({
-    familia: familiaActual,
-    invitado: i.value,
-    asiste: i.checked ? "SI" : "NO",
-    mensaje
-  }));
+        invitados
+            .filter(i => i.familia === familia)
+            .forEach(i => {
+            listaInvitados.innerHTML += `
+                <label>
+                <input type="checkbox" value="${i.invitado}" checked>
+                ${i.invitado}
+                </label>
+            `;
+            });
+        }
 
-  fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
-  .then(() => {
-    alert("¡Gracias por confirmar! 💕");
-    form.reset();
-    form.style.display = "none";
-  });
-});
-</script>
+        form.addEventListener("submit", e => {
+        e.preventDefault();
 
+        const mensaje = document.getElementById("mensaje").value;
+
+        const data = [...listaInvitados.querySelectorAll("input")].map(i => ({
+            familia: familiaActual,
+            invitado: i.value,
+            asiste: i.checked ? "SI" : "NO",
+            mensaje
+        }));
+
+        fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            alert("Gracias por confirmar. Hemos registrado correctamente tu respuesta. 💐");
+            form.reset();
+            form.style.display = "none";
+            buscar.value = "";
+        });
+        });
+    </script>
 </body>
 </html>
