@@ -850,55 +850,38 @@
 
     <!-- Confirmación -->
     <section class="section rsvp-section" id="rsvp">
-        <div class="container">
-            <div class="rsvp-container fade-up">
-                <div class="rsvp-header">
-                    <h2>Confirma Tu Asistencia</h2>
-                    <p>Por favor confirma antes del 1 de Mayo 2026</p>
-                </div>
-                
-                <form class="rsvp-form" id="rsvpForm">
-                    <div class="form-group">
-                        <label class="form-label" for="name">Nombre completo *</label>
-                        <input type="text" id="name" class="form-control" placeholder="Ej: María González López" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="phone">Número de teléfono *</label>
-                        <input type="tel" id="phone" class="form-control" placeholder="Ej: 33 1234 5678" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">¿Asistirás a nuestra boda? *</label>
-                        <div class="select-group">
-                            <select id="attendance" class="form-control" required>
-                                <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="yes">¡Sí, con mucho gusto!</option>
-                                <option value="no">Lamentablemente no podré asistir</option>
-                            </select>
-                            
-                            <select id="guests" class="form-control" required>
-                                <option value="" disabled selected>Número de invitados</option>
-                                <option value="1">1 persona</option>
-                                <option value="2">2 personas</option>
-                                <option value="3">3 personas</option>
-                                <option value="4">4 personas</option>
-                                <option value="5+">5 o más personas</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="message">Mensaje para los novios (opcional)</label>
-                        <textarea id="message" class="form-control" rows="3" placeholder="Escribe un mensaje especial para Ana y Carlos..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="rsvp-btn">
-                        <i class="fab fa-whatsapp"></i> Enviar Confirmación
-                    </button>
-                </form>
+      <div class="container">
+        <div class="rsvp-container fade-up">
+          <div class="rsvp-header">
+            <h2>Confirma Tu Asistencia</h2>
+            <p>Busca tu familia y confirma asistencia</p>
+          </div>
+    
+          <div class="rsvp-form">
+            <div class="form-group">
+              <label class="form-label">Busca tu familia *</label>
+              <input type="text" id="buscarFamilia" class="form-control" placeholder="Ej: Camacho">
             </div>
+    
+            <div id="listaFamilias" class="form-group"></div>
+    
+            <form id="formConfirmacion" style="display:none;">
+              <h3 id="familiaSeleccionada"></h3>
+    
+              <div id="listaInvitados" class="form-group"></div>
+    
+              <div class="form-group">
+                <label class="form-label">Mensaje (opcional)</label>
+                <textarea id="mensaje" class="form-control"></textarea>
+              </div>
+    
+              <button type="submit" class="rsvp-btn">
+                <i class="fas fa-check"></i> Confirmar asistencia
+              </button>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Música -->
@@ -1120,5 +1103,85 @@
             });
         });
     </script>
+    <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbx735wnuivqk7hKQ-dphMwaLqoTyyHY5zcKpOGh39NWziLGR1b80kHllihptDbsIXrf/exec";
+
+let invitados = [];
+let familiaActual = "";
+
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => invitados = data);
+
+const buscar = document.getElementById("buscarFamilia");
+const listaFamilias = document.getElementById("listaFamilias");
+const form = document.getElementById("formConfirmacion");
+const listaInvitados = document.getElementById("listaInvitados");
+const familiaTitle = document.getElementById("familiaSeleccionada");
+
+buscar.addEventListener("input", () => {
+  const texto = buscar.value.toLowerCase();
+  listaFamilias.innerHTML = "";
+
+  const familias = [...new Set(
+    invitados
+      .filter(i => i.familia.toLowerCase().includes(texto))
+      .map(i => i.familia)
+  )];
+
+  familias.forEach(f => {
+    const btn = document.createElement("button");
+    btn.className = "form-control";
+    btn.style.marginBottom = "10px";
+    btn.textContent = f;
+    btn.onclick = () => seleccionarFamilia(f);
+    listaFamilias.appendChild(btn);
+  });
+});
+
+function seleccionarFamilia(familia) {
+  familiaActual = familia;
+  form.style.display = "block";
+  listaFamilias.innerHTML = "";
+  buscar.value = familia;
+  familiaTitle.textContent = familia;
+  listaInvitados.innerHTML = "";
+
+  invitados
+    .filter(i => i.familia === familia)
+    .forEach(i => {
+      listaInvitados.innerHTML += `
+        <label style="display:block;margin-bottom:10px;">
+          <input type="checkbox" value="${i.invitado}" checked>
+          ${i.invitado}
+        </label>
+      `;
+    });
+}
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const mensaje = document.getElementById("mensaje").value;
+
+  const data = [...listaInvitados.querySelectorAll("input")].map(i => ({
+    familia: familiaActual,
+    invitado: i.value,
+    asiste: i.checked ? "SI" : "NO",
+    mensaje
+  }));
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    alert("¡Gracias por confirmar! 💕");
+    form.reset();
+    form.style.display = "none";
+  });
+});
+</script>
+
 </body>
 </html>
